@@ -1,0 +1,14 @@
+---
+version: "3"
+services:
+ database:
+   container_name: devopsdb
+   image: shaikmustafa/myapp:db
+   ports:
+     - "3306:3306"
+
+ application:
+   container_name: appcontainer
+   image: shaikmustafa/myapp:app
+   ports:
+     - "1234:8080"
