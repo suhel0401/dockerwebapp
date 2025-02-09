@@ -1,7 +1,7 @@
 ---
 version: "3"
 services:
- database:
+ devopsdb:
    container_name: devopsdb
    image: shaikmustafa/ourproject:db
    ports:
@@ -12,3 +12,5 @@ services:
    image: shaikmustafa/ourproject:app
    ports:
      - "1234:8080"
+   depends_on:
+     - "devopsdb"
