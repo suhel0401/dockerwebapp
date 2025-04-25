@@ -8,8 +8,9 @@ services:
      - "3306:3306"
 
  application:
-   container_name: newapp
    image: shaikmustafa/ccitrepo:appimage
+   deploy:
+     replicas: 3
    ports:
      - "1234:8080"
    depends_on:
