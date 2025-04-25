@@ -8,7 +8,7 @@ services:
      - "3306:3306"
 
  application:
-  container_name: newapp
+   container_name: newapp
    image: shaikmustafa/ccitrepo:appimage
    ports:
      - "1234:8080"
