@@ -1,8 +1,8 @@
 ---
 version: "3"
 services:
- container_name: devopsdb
  devopsdb:
+   container_name: devopsdb
    image: shaikmustafa/ccitrepo:dbimage
    ports:
      - "3306:3306"
