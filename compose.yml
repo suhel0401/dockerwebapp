@@ -1,37 +1,16 @@
-version: '3.8'
-
+---
+version: "3"
 services:
-  app:
-    image: shaikmustafa/ccitrepo:appimage
-    deploy:
-      replicas: 3  # Number of replicas you want
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "1234:8080"
-    environment:
-      - MYSQL_HOST=devopsdb
-    depends_on:
-      - devopsdb
-    networks:
-      - app-network
+ devopsdb:
+   container_name: devopsdb
+   image: shaikmustafa/ccitrepo:dbimage
+   ports:
+     - "3306:3306"
 
-  devopsdb:
-    image: shaikmustafa/ccitrepo:dbimage
-    deploy:
-      replicas: 2  # Typically you want only 1 replica for databases unless you have clustering
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql  # Persistent storage for database
-    networks:
-      - app-network
-
-volumes:
-  db-data:
-
-networks:
-  app-network:
-    driver: overlay
+ application:
+   image: shaikmustafa/ccitrepo:appimage
+   container_name: appcontainer
+   ports:
+     - "1234:8080"
+   depends_on:
+     - "devopsdb"
