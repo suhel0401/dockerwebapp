@@ -9,8 +9,7 @@ services:
 
  application:
    image: shaikmustafa/demorepo:appimage
-   deploy:
-     replicas: 2
+   container_name: containerapp
    ports:
      - "1234:8080"
    depends_on:
