@@ -3,13 +3,14 @@ version: "3"
 services:
  devopsdb:
    container_name: devopsdb
-   image: shaikmustafa/ccitrepo:dbimage
+   image: shaikmustafa/demorepo:dbimage
    ports:
      - "3306:3306"
 
  application:
-   image: shaikmustafa/ccitrepo:appimage
-   container_name: appcontainer
+   image: shaikmustafa/demorepo:appimage
+   deploy:
+     replicas: 2
    ports:
      - "1234:8080"
    depends_on:
