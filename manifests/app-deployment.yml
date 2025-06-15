@@ -18,6 +18,8 @@ spec:
           image: shaikmustafa/devopsapp:appimage
           ports:
             - containerPort: 8080
+      imagePullSecrets:
+        - name: dockerhub
 
 
 
