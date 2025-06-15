@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 3306
       imagePullSecrets:
-        - name: dockerhub
+        - name: dockerhubnew
 
 
 
