@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dbsvc
+  name: devopsdb
 spec:
   clusterIP: None
   selector:
