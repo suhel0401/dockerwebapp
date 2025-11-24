@@ -1,18 +1,37 @@
+
 pipeline {
     agent any
 
     stages {
-        stage('Build') {
+
+        stage('Clone Code') {
             steps {
-                echo "Building the application"
+                echo "Code Cloned Automatically by Jenkins from SCM"
             }
         }
 
-        stage('Docker Build') {
+        stage('Build Docker Images') {
             steps {
-                sh 'docker build -t dockerwebapp .'
+                sh '''
+                    docker-compose -f docker-compose.yml build
+                '''
+            }
+        }
+
+        stage('Stop Old Containers') {
+            steps {
+                sh '''
+                    docker-compose -f docker-compose.yml down
+                '''
+            }
+        }
+
+        stage('Start New Containers') {
+            steps {
+                sh '''
+                    docker-compose -f docker-compose.yml up -d
+                '''
             }
         }
     }
 }
-
