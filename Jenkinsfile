@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo "Stopping existing containers if any..."
                 sh """
-                    docker-compose -f \$COMPOSE_FILE down || true
+                    docker-compose -f \$COMPOSE_FILE down --remove-orphans
                 """
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo "Starting containers..."
                 sh """
-                    docker-compose -f \$COMPOSE_FILE up -d
+                    docker-compose -f \$COMPOSE_FILE up -d --force-recreate
                 """
             }
         }
