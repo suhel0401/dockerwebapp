@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        COMPOSE_FILE = 'docker-compose.yml'
+    }
+
     stages {
 
         stage('Clone Code') {
@@ -10,27 +14,46 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-    steps {
-        sh '''
-        sudo docker-compose -f docker-compose.yml build
-        '''
-               }
-             }
+            steps {
+                echo "Building Docker images..."
+                sh """
+                    docker-compose -f \$COMPOSE_FILE build
+                """
+            }
+        }
 
         stage('Stop Old Containers') {
             steps {
-                sh '''
-                    docker-compose -f docker-compose.yml down
-                '''
+                echo "Stopping existing containers if any..."
+                sh """
+                    docker-compose -f \$COMPOSE_FILE down || true
+                """
             }
         }
 
         stage('Start New Containers') {
             steps {
-                sh '''
-                    docker-compose -f docker-compose.yml up -d
-                '''
+                echo "Starting containers..."
+                sh """
+                    docker-compose -f \$COMPOSE_FILE up -d
+                """
             }
+        }
+
+        stage('List Running Containers') {
+            steps {
+                echo "Listing all running containers..."
+                sh 'docker ps'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs for details."
         }
     }
 }
