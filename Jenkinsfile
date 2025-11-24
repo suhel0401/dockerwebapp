@@ -10,12 +10,12 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-            steps {
-                sh '''
-                    docker-compose -f docker-compose.yml build
-                '''
-            }
-        }
+    steps {
+        sh '''
+        sudo docker-compose -f docker-compose.yml build
+        '''
+               }
+             }
 
         stage('Stop Old Containers') {
             steps {
